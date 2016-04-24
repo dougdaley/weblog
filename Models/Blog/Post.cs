@@ -5,7 +5,7 @@ namespace weblog.Models.Blog
     
     public class Post
     {
-        enum PostStatus
+        public enum PostStatus
         {
             Draft = 0,
             Published = 1
@@ -15,7 +15,7 @@ namespace weblog.Models.Blog
         public string Title { get; set; }
         public Topic Topic { get; set; }
         public string Content { get; set; }
-        public int Status { get; set; }
+        public PostStatus Status { get; set; }
         public DateTime Date { get; set; }
     }
 }

@@ -1,0 +1,11 @@
+@model IEnumerable<weblog.Models.Blog.Post>
+
+    
+<h2>Draft Posts</h2>
+<table>
+    <tr><th>Title</th></tr>
+    @foreach (var draft in Model)
+    {
+        <tr><td>@Post.Title</td></tr>
+    }
+</table>

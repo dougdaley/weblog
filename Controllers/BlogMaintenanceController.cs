@@ -3,6 +3,7 @@ using Microsoft.AspNet.Mvc;
 using System.Linq;
 using System.Collections.Generic;
 using weblog.Models.Blog;
+using weblog.ViewComponents;
 
 namespace weblog.Controllers
 {

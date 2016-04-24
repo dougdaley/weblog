@@ -1,0 +1,9 @@
+@model weblog.Models.Blog.Post
+
+<h2>Create new post</h2>
+<form asp-controller="BlogMaintenance" asp-action="CreatePost" method="POST" role="form">
+    <label asp-for="Title">Title:</label>
+    <input asp-for="Title" />
+</form>
+
+@await Component.InvokeAsync("DraftPosts")
