@@ -1,3 +1,7 @@
+@{ 
+    var controllerName = this.ViewContext.RouteData.Values["controller"].ToString();
+}
+
 <!doctype html>
 <html lang="">
     <head>
@@ -19,33 +23,40 @@
         </environment>
     </head>
     <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a asp-controller="Home" asp-action="Index" class="navbar-brand">weblog</a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li><a asp-controller="Home" asp-action="About">About</a></li>
-                        <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    </ul>
-                    @await Html.PartialAsync("_LoginPartial")
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="col-md-12">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a asp-controller="Home" asp-action="Index" class="navbar-brand">weblog</a>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                            <li><a asp-controller="Home" asp-action="About">About</a></li>
+                            <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+                            <li><a asp-controller="BlogMaintenance" asp-action="Index">Maintain Blog</a></li>
+                            <li><a asp-controller="BlogMaintenance" asp-action="NewPost">New Post</a></li>
+                        </ul>
+                        @await Html.PartialAsync("_LoginPartial")
+                    </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="container">
+        
+        <!--<div class="container">-->
             @RenderBody()
 
                       
-        </div>
+        <!--</div>-->
 
+        @if (controllerName != "BlogMaintenance")
+        {
         <footer class="footer">
             <div class="container">
                 <div class="row col-md-6 col-md-offset-3">
@@ -53,6 +64,7 @@
                 </div>
             </div>
         </footer>  
+        }
 
         <environment names="Development">
             <script src="~/lib/jquery/dist/jquery.js"></script>

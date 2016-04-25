@@ -1,0 +1,48 @@
+@model weblog.Models.Blog.Post
+
+
+
+<!--<div class="container full-height editor">-->
+
+    <form asp-controller="BlogMaintenance" asp-action="SavePost" method="POST" role="form" class="form-horizontal full-height">   
+        
+        <div class="container">
+            <div class="col-md-12"><input asp-for="Title" class="post-editor-title" tabindex="0" autofocus placeholder="Your Post Title" /></div>
+        </div>
+        
+        <div class="container full-height editor">                     
+            <div class="col-md-6 full-height">
+                <textarea asp-for="Content" class="post-editor-content full-height" id="wmd-input" placeholder="Your post content."></textarea>
+            </div>
+            <div class="col-md-6 full-height post-editor-liveview" id="wmd-preview"></div>               
+        </div>
+    </form>
+
+<!--</div>-->
+
+<environment names="Development">
+    <script src="~/js/Markdown.Converter.js"></script>
+    <script src="~/js/Markdown.Editor.js"></script>
+    <script src="~/js/Markdown.Sanitizer.js"></script>
+</environment>
+<environment names="Staging,Production">
+    <script src="~/js/Markdown.Converter.js" asp-append-version="true"></script>
+    <script src="~/js/Markdown.Editor.js" asp-append-version="true"></script>
+    <script src="~/js/Markdown.Sanitizer.js" asp-append-version="true"></script>
+</environment>
+
+<script type="text/javascript">
+    (function () {
+        var converter = Markdown.getSanitizingConverter();
+        
+        converter.hooks.chain("preBlockGamut", function (text, rbg) {
+            return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function (whole, inner) {
+                return "<blockquote>" + rbg(inner) + "</blockquote>\n";
+            });
+        });
+        
+        var editor = new Markdown.Editor(converter);
+        
+        editor.run();
+    })();
+</script>

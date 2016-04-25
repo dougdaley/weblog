@@ -19,25 +19,35 @@ namespace weblog.Controllers
         
         public IActionResult Index()
         {
-            return View();
+            return View("Index");
         }
-
-        public IActionResult Create()
+        
+        public IActionResult NewPost()
         {
             return View();
         }
+
+        /*public IActionResult Create()
+        {
+            return View("Index");//RedirectToAction(nameof(Index));
+        }*/
         
         [HttpPost]
         public IActionResult Create(Post post)
         {
             if (ModelState.IsValid)
             {
+                post.Status = Post.PostStatus.Draft;
                 _context.Posts.Add(post);
                 _context.SaveChanges();
+                
+                RedirectToAction("Index", "BlogMaintenance");
             }
+            
+            return RedirectToAction("Index", "BlogMaintenance");
 
-            return Index();
-            //return CreatedAtActionResult(
+           // return View("Index");//RedirectToAction(nameof(Index));
+            
         }
 
 
