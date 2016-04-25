@@ -26,6 +26,18 @@ namespace weblog.Controllers
         {
             return View();
         }
+        
+        public IActionResult EditPost(int? id)
+        {
+            Post post = _context.Posts.Single(p => p.PostId == id);
+            
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+            
+            return View("NewPost", post);
+        }
 
         /*public IActionResult Create()
         {
@@ -41,13 +53,34 @@ namespace weblog.Controllers
                 _context.Posts.Add(post);
                 _context.SaveChanges();
                 
-                RedirectToAction("Index", "BlogMaintenance");
+                //RedirectToAction("Index", "BlogMaintenance");
             }
             
             return RedirectToAction("Index", "BlogMaintenance");
 
            // return View("Index");//RedirectToAction(nameof(Index));
             
+        }
+        
+        public IActionResult SavePost(Post post)
+        {
+            if (ModelState.IsValid)
+            {
+                /*if (post.PostId == 0)
+                {
+                    _context.Posts.Add(post);
+                    _context.SaveChanges();
+                }
+                else
+                {*/
+                    _context.Posts.Update(post);
+                    _context.SaveChanges();
+                //}
+                
+                //_context.
+            }
+            
+            return RedirectToAction("EditPost", "BlogMaintenance", new {id = post.PostId});
         }
 
 
